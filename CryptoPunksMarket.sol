@@ -10,7 +10,7 @@ contract CryptoPunksMarket {
 
     address owner;
 
-    string public standard = 'CryptoPunks';
+    string public standard = 'CryptoePunks';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -31,7 +31,7 @@ contract CryptoPunksMarket {
         bool isForSale;
         uint punkIndex;
         address seller;
-        uint minValue;          // in ether
+        uint minValue;          // in EtherGem
         address onlySellTo;     // specify to sell only to a specific person
     }
 
@@ -63,9 +63,9 @@ contract CryptoPunksMarket {
     function CryptoPunksMarket() payable {
         //        balanceOf[msg.sender] = initialSupply;              // Give the creator all initial tokens
         owner = msg.sender;
-        totalSupply = 10000;                        // Update total supply
+        totalSupply = 879120;                        // Update total supply
         punksRemainingToAssign = totalSupply;
-        name = "CRYPTOPUNKS";                                   // Set the name for display purposes
+        name = "CRYPTOEPUNKS";                                   // Set the name for display purposes
         symbol = "Ͼ";                               // Set the symbol for display purposes
         decimals = 0;                                       // Amount of decimals for display purposes
     }
@@ -73,7 +73,7 @@ contract CryptoPunksMarket {
     function setInitialOwner(address to, uint punkIndex) {
         if (msg.sender != owner) throw;
         if (allPunksAssigned) throw;
-        if (punkIndex >= 10000) throw;
+        if (punkIndex >= 879120) throw;
         if (punkIndexToAddress[punkIndex] != to) {
             if (punkIndexToAddress[punkIndex] != 0x0) {
                 balanceOf[punkIndexToAddress[punkIndex]]--;
@@ -103,7 +103,7 @@ contract CryptoPunksMarket {
         if (!allPunksAssigned) throw;
         if (punksRemainingToAssign == 0) throw;
         if (punkIndexToAddress[punkIndex] != 0x0) throw;
-        if (punkIndex >= 10000) throw;
+        if (punkIndex >= 879120) throw;
         punkIndexToAddress[punkIndex] = msg.sender;
         balanceOf[msg.sender]++;
         punksRemainingToAssign--;
@@ -114,7 +114,7 @@ contract CryptoPunksMarket {
     function transferPunk(address to, uint punkIndex) {
         if (!allPunksAssigned) throw;
         if (punkIndexToAddress[punkIndex] != msg.sender) throw;
-        if (punkIndex >= 10000) throw;
+        if (punkIndex >= 879120) throw;
         if (punksOfferedForSale[punkIndex].isForSale) {
             punkNoLongerForSale(punkIndex);
         }
@@ -136,7 +136,7 @@ contract CryptoPunksMarket {
     function punkNoLongerForSale(uint punkIndex) {
         if (!allPunksAssigned) throw;
         if (punkIndexToAddress[punkIndex] != msg.sender) throw;
-        if (punkIndex >= 10000) throw;
+        if (punkIndex >= 879120) throw;
         punksOfferedForSale[punkIndex] = Offer(false, punkIndex, msg.sender, 0, 0x0);
         PunkNoLongerForSale(punkIndex);
     }
@@ -144,7 +144,7 @@ contract CryptoPunksMarket {
     function offerPunkForSale(uint punkIndex, uint minSalePriceInWei) {
         if (!allPunksAssigned) throw;
         if (punkIndexToAddress[punkIndex] != msg.sender) throw;
-        if (punkIndex >= 10000) throw;
+        if (punkIndex >= 879120) throw;
         punksOfferedForSale[punkIndex] = Offer(true, punkIndex, msg.sender, minSalePriceInWei, 0x0);
         PunkOffered(punkIndex, minSalePriceInWei, 0x0);
     }
@@ -152,7 +152,7 @@ contract CryptoPunksMarket {
     function offerPunkForSaleToAddress(uint punkIndex, uint minSalePriceInWei, address toAddress) {
         if (!allPunksAssigned) throw;
         if (punkIndexToAddress[punkIndex] != msg.sender) throw;
-        if (punkIndex >= 10000) throw;
+        if (punkIndex >= 879120) throw;
         punksOfferedForSale[punkIndex] = Offer(true, punkIndex, msg.sender, minSalePriceInWei, toAddress);
         PunkOffered(punkIndex, minSalePriceInWei, toAddress);
     }
@@ -160,7 +160,7 @@ contract CryptoPunksMarket {
     function buyPunk(uint punkIndex) payable {
         if (!allPunksAssigned) throw;
         Offer offer = punksOfferedForSale[punkIndex];
-        if (punkIndex >= 10000) throw;
+        if (punkIndex >= 879120) throw;
         if (!offer.isForSale) throw;                // punk not actually for sale
         if (offer.onlySellTo != 0x0 && offer.onlySellTo != msg.sender) throw;  // punk not supposed to be sold to this user
         if (msg.value < offer.minValue) throw;      // Didn't send enough ETH
@@ -197,7 +197,7 @@ contract CryptoPunksMarket {
     }
 
     function enterBidForPunk(uint punkIndex) payable {
-        if (punkIndex >= 10000) throw;
+        if (punkIndex >= 879120) throw;
         if (!allPunksAssigned) throw;                
         if (punkIndexToAddress[punkIndex] == 0x0) throw;
         if (punkIndexToAddress[punkIndex] == msg.sender) throw;
@@ -213,7 +213,7 @@ contract CryptoPunksMarket {
     }
 
     function acceptBidForPunk(uint punkIndex, uint minPrice) {
-        if (punkIndex >= 10000) throw;
+        if (punkIndex >= 879120) throw;
         if (!allPunksAssigned) throw;                
         if (punkIndexToAddress[punkIndex] != msg.sender) throw;
         address seller = msg.sender;
@@ -234,7 +234,7 @@ contract CryptoPunksMarket {
     }
 
     function withdrawBidForPunk(uint punkIndex) {
-        if (punkIndex >= 10000) throw;
+        if (punkIndex >= 879120) throw;
         if (!allPunksAssigned) throw;                
         if (punkIndexToAddress[punkIndex] == 0x0) throw;
         if (punkIndexToAddress[punkIndex] == msg.sender) throw;
